@@ -5,6 +5,12 @@ on:
     - cron: '0 0 * * *'  # 毎日UTC 0:00（日本時間 9:00）に実行
   workflow_dispatch:       # 手動実行も可能
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+permissions:
+  contents: write
+
 jobs:
   sync:
     runs-on: ubuntu-latest
