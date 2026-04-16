@@ -1,0 +1,80 @@
+name: Sync CHIRIMEN sources
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 毎日UTC 0:00（日本時間 9:00）に実行
+  workflow_dispatch:       # 手動実行も可能
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v4
+
+      # 1. chirimen.org から pizero/src だけ取得
+      - name: Fetch chirimen.org/pizero/src
+        run: |
+          git clone --depth=1 --filter=blob:none --sparse \
+            https://github.com/chirimen-oh/chirimen.org.git _tmp_chirimen_org
+          cd _tmp_chirimen_org
+          git sparse-checkout set pizero/src
+          cd ..
+          rm -rf sources/pizero-src
+          mkdir -p sources/pizero-src
+          cp -r _tmp_chirimen_org/pizero/src/. sources/pizero-src/
+          rm -rf _tmp_chirimen_org
+
+      # 2. chirimen-drivers から packages だけ取得
+      - name: Fetch chirimen-drivers/packages
+        run: |
+          git clone --depth=1 --filter=blob:none --sparse \
+            https://github.com/chirimen-oh/chirimen-drivers.git _tmp_drivers
+          cd _tmp_drivers
+          git sparse-checkout set packages
+          cd ..
+          rm -rf sources/chirimen-drivers-packages
+          mkdir -p sources/chirimen-drivers-packages
+          cp -r _tmp_drivers/packages/. sources/chirimen-drivers-packages/
+          rm -rf _tmp_drivers
+
+      # 3. node-web-gpio 丸ごと取得
+      - name: Fetch node-web-gpio
+        run: |
+          git clone --depth=1 \
+            https://github.com/chirimen-oh/node-web-gpio.git _tmp_gpio
+          rm -rf sources/node-web-gpio
+          cp -r _tmp_gpio sources/node-web-gpio
+          rm -rf sources/node-web-gpio/.git
+          rm -rf _tmp_gpio
+
+      # 4. node-web-i2c 丸ごと取得
+      - name: Fetch node-web-i2c
+        run: |
+          git clone --depth=1 \
+            https://github.com/chirimen-oh/node-web-i2c.git _tmp_i2c
+          rm -rf sources/node-web-i2c
+          cp -r _tmp_i2c sources/node-web-i2c
+          rm -rf sources/node-web-i2c/.git
+          rm -rf _tmp_i2c
+
+      # 5. remote-connection 丸ごと取得
+      - name: Fetch remote-connection
+        run: |
+          git clone --depth=1 \
+            https://github.com/chirimen-oh/remote-connection.git _tmp_remote
+          rm -rf sources/remote-connection
+          cp -r _tmp_remote sources/remote-connection
+          rm -rf sources/remote-connection/.git
+          rm -rf _tmp_remote
+
+      # 変更があればcommit & push
+      - name: Commit and push if changed
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add sources/
+          git diff --staged --quiet && echo "No changes" && exit 0
+          git commit -m "chore: sync sources $(date +'%Y-%m-%d')"
+          git push
