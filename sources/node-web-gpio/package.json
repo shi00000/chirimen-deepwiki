@@ -1,0 +1,51 @@
+{
+  "name": "node-web-gpio",
+  "version": "1.1.57",
+  "description": "GPIO access with Node.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chirimen-oh/node-web-gpio.git"
+  },
+  "author": "Kohei Watanabe <kou029w@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@biomejs/biome": "2.3.13",
+    "@types/node": "22.19.13",
+    "husky": "9.1.7",
+    "lint-staged": "16.2.7",
+    "prettier": "3.7.4",
+    "typedoc": "0.28.15",
+    "typedoc-rhineai-theme": "1.2.0",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "biome lint index.ts",
+    "prepare": "husky install && rm -rf dist && npm run build",
+    "precommit": "lint-staged",
+    "preversion": "npm run docs && git add docs",
+    "docs": "npm run remove:docs && npm run typedoc -- --options typedoc.json --exclude '**/*.spec.ts' ./ README.md",
+    "typedoc": "typedoc",
+    "remove:docs": "rm -rf docs"
+  },
+  "keywords": [
+    "gpio",
+    "hardware",
+    "iot",
+    "linux",
+    "pi",
+    "raspberry",
+    "raspberry pi",
+    "raspi",
+    "robot",
+    "robotics",
+    "robots",
+    "rpi"
+  ],
+  "packageManager": "npm@11.7.0"
+}

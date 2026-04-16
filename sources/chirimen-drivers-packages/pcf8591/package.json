@@ -1,0 +1,19 @@
+{
+  "name": "@chirimen/pcf8591",
+  "description": "Driver for PCF8591 with WebI2C",
+  "version": "2.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chirimen-oh/chirimen-drivers.git",
+    "directory": "packages/pcf8591"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "exports": "./index.js",
+  "peerDependencies": {
+    "node-web-i2c": "^1.1.51"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@chirimen/max30102",
+  "description": "Driver for MAX30102 with WebI2C",
+  "version": "2.1.0",
+  "author": "Kohei Watanabe <nebel@fogtype.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chirimen-oh/chirimen-drivers.git",
+    "directory": "packages/max30102"
+  },
+  "type": "module",
+  "exports": "./index.js",
+  "peerDependencies": {
+    "node-web-i2c": "^1.1.51"
+  }
+}
