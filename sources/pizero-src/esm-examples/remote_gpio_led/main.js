@@ -1,8 +1,6 @@
 // Remote Example1 - reciever
-// for CHIRIMEN with nodejs
 
 import { requestGPIOAccess } from "node-web-gpio";
-import nodeWebSocketLib from "websocket"; // https://www.npmjs.com/package/websocket
 import { RelayServer } from "./RelayServer.js";
 
 let channel;
@@ -31,12 +29,7 @@ gpioPort0 = mbGpioPorts.get(26);
 await gpioPort0.export("out");
 
 // webSocketリレーの初期化
-const relay = RelayServer(
-  "chirimentest",
-  "chirimenSocket",
-  nodeWebSocketLib,
-  "https://chirimen.org",
-);
+const relay = RelayServer("chirimentest", "chirimenSocket");
 channel = await relay.subscribe("chirimenLED");
 console.log("web socketリレーサービスに接続しました");
 channel.onmessage = controlLED;

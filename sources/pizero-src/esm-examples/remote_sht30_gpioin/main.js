@@ -1,9 +1,7 @@
 // Remote Example5 - reciever
-// for CHIRIMEN with nodejs
 import { requestGPIOAccess } from "node-web-gpio";
 import { requestI2CAccess } from "node-web-i2c";
 import SHT30 from "@chirimen/sht30";
-import nodeWebSocketLib from "websocket"; // https://www.npmjs.com/package/websocket
 import { RelayServer } from "./RelayServer.js";
 
 let channel;
@@ -35,7 +33,7 @@ sht = new SHT30(i2cPort);
 await sht.init();
 
 // webSocketリレーの初期化
-const relay = RelayServer("chirimentest", "chirimenSocket", nodeWebSocketLib, "https://chirimen.org");
+const relay = RelayServer("chirimentest", "chirimenSocket");
 channel = await relay.subscribe("chirimenSHT");
 console.log("web socketリレーサービスに接続しました");
 gpioPort.onchange = transmitSensorData;

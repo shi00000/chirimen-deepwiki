@@ -1,10 +1,8 @@
 // Remote Example PCA9685PWM + HBridge - reciever
-// for CHIRIMEN with nodejs
 
 import { requestI2CAccess } from "node-web-i2c";
 import PCA9685_PWM from "@chirimen/pca9685-pwm";
 
-import nodeWebSocketLib from "websocket"; // https://www.npmjs.com/package/websocket
 import { RelayServer } from "./RelayServer.js";
 
 let pca9685pwm;
@@ -54,7 +52,7 @@ await pca9685pwm.init(100);
 
 // webSocketリレーの初期化
 //
-const relay = RelayServer("chirimentest","chirimenSocket",nodeWebSocketLib,"https://chirimen.org");
+const relay = RelayServer("chirimentest", "chirimenSocket");
 channel = await relay.subscribe("chirimenPWMHB");
 console.log("web socketリレーサービスに接続しました");
 channel.onmessage = controlMotor;
