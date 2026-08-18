@@ -1,4 +1,12 @@
 // @ts-check
+export {
+  GPIOAccess,
+  GPIOPort,
+  GPIOPortMap,
+  requestGPIOAccess,
+} from "node-web-gpio";
+export * from "node-web-i2c";
+export { setTimeout as sleep } from "node:timers/promises";
 
 export { default as ADS1015 } from "@chirimen/ads1015";
 export { default as ADS1x15 } from "@chirimen/ads1x15";
@@ -7,6 +15,7 @@ export { default as AHT10 } from "@chirimen/aht10";
 export { default as AHTX0 } from "@chirimen/ahtx0";
 export { default as AK8963 } from "@chirimen/ak8963";
 export { default as AMG8833 } from "@chirimen/amg8833";
+export { default as APDS9930 } from "@chirimen/apds9930";
 export { default as APDS9960 } from "@chirimen/apds9960";
 export { default as SteppingMotor } from "@chirimen/arduino-stepping-motor";
 export { default as AS3935 } from "@chirimen/as3935";
@@ -58,11 +67,3 @@ export { default as VEML6070 } from "@chirimen/veml6070";
 export { default as VL53L0X } from "@chirimen/vl53l0x";
 export { default as VL53L1X } from "@chirimen/vl53l1x";
 export { default as VL6180X } from "@chirimen/vl6180x";
-
-export {
-  GPIOAccess,
-  GPIOPort,
-  GPIOPortMap,
-  requestGPIOAccess,
-} from "node-web-gpio";
-export * from "node-web-i2c";
